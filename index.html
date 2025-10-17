@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter Textarea</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            resize: vertical;
+        }
+        #counter {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        #warning {
+            margin-top: 5px;
+            font-size: 12px;
+            color: red;
+            display: none;
+        }
+        #warning.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <label for="message">Message (200 characters max)</label>
+    <textarea id="message" placeholder="Type your message here..."></textarea>
+    <p id="counter">0/200 characters</p>
+    <p id="warning">You have exceeded the character limit!</p>
+
+    <script>
+        const textarea = document.getElementById('message');
+        const counter = document.getElementById('counter');
+        const warning = document.getElementById('warning');
+        const maxLength = 200;
+
+        textarea.addEventListener('input', function() {
+            let currentLength = this.value.length;
+            
+            if (currentLength > maxLength) {
+                this.value = this.value.substring(0, maxLength);
+                currentLength = maxLength;
+                warning.classList.add('show');
+            } else {
+                warning.classList.remove('show');
+            }
+            
+            counter.textContent = `${currentLength}/${maxLength} characters`;
+        });
+    </script>
+</body>
+</html>
